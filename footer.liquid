@@ -1,0 +1,328 @@
+<footer data-section-id="{{ section.id }}">
+  <div id="footer-wrapper">
+    <div id="footer" class="row no-fouc">
+
+
+    {% case section.blocks.size %}
+      {% when 0 %}
+      {% when 1 %}
+        {% assign column_width = 'desktop-12 tablet-6 mobile-3' %}
+      {% when 2 %}
+        {% assign column_width = 'desktop-6 tablet-3 mobile-3' %}
+      {% when 3 %}
+        {% assign column_width = 'desktop-4 tablet-3 mobile-3' %}
+      {% when 4 %}
+        {% assign column_width = 'desktop-3 tablet-3 mobile-3' %}
+      {% when 5 %}
+        {% assign column_width = 'desktop-2 tablet-2 mobile-2' %}
+    {% endcase %}
+
+      {% for block in section.blocks %}
+      {% case block.type %}
+      {% when 'menu' %}
+      <div class="{{ column_width }}">
+        <h4>{{ block.settings.title }}</h4>
+        <ul {{ block.shopify_attributes }}>
+          {% for link in linklists[block.settings.footer_nav].links %}
+            <li>{{ link.title | link_to: link.url }}</li>
+          {% endfor %}
+         
+        </ul>
+      </div>
+      {% when 'newsletter' %}
+      <div class="{{ column_width }}">
+        <h4>{{ block.settings.title }}</h4>
+        <ul {{ block.shopify_attributes }}>
+          {% for link in linklists[block.settings.footer_nav].links %}
+            <li>{{ link.title | link_to: link.url }}</li>
+          {% endfor %}
+         
+        </ul>
+      </div>
+          <p class="footer-icon-5">
+    
+      <img class="hidden-xs visible-sm visible-md visible-lg visible-xl" src="//cdn.shopify.com/s/files/1/0076/0850/0271/t/2/assets/custom-footer-logo-file-5.png?1080" alt="">
+        {{ block.settings.mailing_subheading }}
+
+      </div>
+      {% when 'social' %}
+      <div class="{{ column_width }}">
+        <h3>{{ block.settings.title | escape }}</h3>
+          <p class="footer-icon-5">
+			<ul id="footer-icons" class="desktop-12 tablet-6 mobile-3">
+              {% for link in linklists[block.settings.footer_nav].links %}
+            <li>{{ link.title | link_to: link.url }}</li><br/>
+              {% endfor %}
+        {% if settings.facebook_url != blank %}
+          <li>
+            <a href="{{ settings.facebook_url }}" target="_blank">
+              <i class="fa fa-facebook fa-2x" aria-hidden="true"></i>
+            </a>
+          </li>
+        {% endif %}
+        {% if settings.instagram-id != blank %}
+          <li>
+            <a href="//instagram.com/{{ settings.instagram-id }}" target="_blank">
+              <i class="fa fa-instagram fa-2x" aria-hidden="true"></i>
+            </a>
+          </li>
+        {% endif %}
+        {% if settings.twittername != blank %}
+          <li>
+            <a href="{{ settings.twittername }}" target="_blank">
+              <i class="fa fa-twitter fa-2x" aria-hidden="true"></i>
+            </a>
+          </li>
+        {% endif %}
+        {% if settings.pinterest_url != blank %}
+          <li>
+            <a href="{{ settings.pinterest_url }}" target="_blank">
+              <i class="fa fa-pinterest fa-2x" aria-hidden="true"></i>
+            </a>
+          </li>
+        {% endif %}
+        {% if settings.tumblr_url != blank %}
+          <li>
+            <a href="{{ settings.tumblr_url }}" target="_blank">
+              <i class="fa fa-tumblr fa-2x" aria-hidden="true"></i>
+            </a>
+          </li>
+        {% endif %}
+        {% if settings.youtube_url != blank %}
+          <li>
+            <a href="{{ settings.youtube_url }}" target="_blank">
+              <i class="fa fa-youtube fa-2x" aria-hidden="true"></i>
+            </a>
+          </li>
+        {% endif %}
+        {% if settings.googleplus_url != blank %}
+          <li>
+            <a href="{{ settings.googleplus_url }}" target="_blank">
+              <i class="fa fa-google-plus-official fa-2x" aria-hidden="true"></i>
+            </a>
+          </li>
+        {% endif %}
+        {% if settings.snapchat-id != blank %}
+          <li>
+            <a href="//snapchat.com/add/{{ settings.snapchat-id }}" target="_blank">
+              <i class="fa fa-snapchat-ghost fa-2x" aria-hidden="true"></i>
+            </a>
+          </li>
+        {% endif %}
+        {% if settings.weibo-id != blank %}
+          <li>
+            <a href="//weibo.com/{{ settings.weibo-id }}" target="_blank">
+              <i class="fa fa-weibo fa-2x" aria-hidden="true"></i>
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+      </div>
+      {% when 'text' %}
+      <div class="{{ column_width }}">
+        <h4>{{ block.settings.title | escape }}</h4>
+        <p class="custom-footer-logo footer-credits">
+      <a href="http://www.maingateinc.com/" target="_blank">
+        <img src="//cdn.shopify.com/s/files/1/0076/0850/0271/t/2/assets/custom-footer-logo-file.png?1080" alt="" class="img-responsive center-block">
+      </a>
+      
+    </p>
+        <div class="rte">{{ block.settings.footer_text }}</div>
+      </div>
+      {% endcase %}
+      {% endfor %}
+
+      
+      <div class="credit desktop-12 tablet-6 mobile-3">
+
+        <div id="payment">
+          {% if section.settings.show_credit_cards %}
+            {% for type in shop.enabled_payment_types %}
+              {{ type | payment_type_svg_tag: class:'payment-icon' }}
+            {% endfor %}
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+  </div>
+</footer>
+	<div id="Bottom-bar">
+        <h4>
+          &copy; {{ 'now' | date: "%Y" }}
+          <a href="//www.maingateinc.com" target="_blank" title="MainGate Inc.">MainGate Inc.</a>
+          All Rights Reserved.<i> No portion of this site may be reproduced or duplicated without the express permission of</i> 
+          <a href="//www.maingateinc.com" target="_blank" title="MainGate Inc.">MainGate Inc.</a>
+        </h4>
+</div>
+
+<style>
+  #footer-wrapper {
+    text-align: center;
+  }
+
+  #footer-wrapper h4 {
+    text-transform: {{ section.settings.footer_title_transform }};
+    font-size: {{ section.settings.footer_title_size }}px;
+  }
+  #Bottom-bar {
+    background: #383838;
+    margin-bottom: -10px;
+    height: 50px;
+  }
+</style>
+
+{% schema %}
+{
+    "name": "Footer",
+	"max_blocks": 5,
+    "settings": [
+     {
+        "type": "select",
+        "id": "footer_text_align",
+        "label": "Footer text align",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "footer_title_weight",
+        "label": "Footer title weight",
+        "options": [
+          {
+            "value": "300",
+            "label": "Light"
+          },
+          {
+            "value": "500",
+            "label": "Normal"
+          },
+          {
+            "value": "700",
+            "label": "Bold"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "footer_title_transform",
+        "label": "Footer title case",
+        "options": [
+          {
+            "value": "uppercase",
+            "label": "Uppercase"
+          },
+          {
+            "value": "inherit",
+            "label": "regular"
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "footer_title_size",
+        "min": 12,
+        "max": 36,
+        "step": 1,
+        "unit": "px",
+        "label": "Footer title size",
+        "default": 14
+      },
+      {
+        "type": "checkbox",
+        "id": "show_credit_cards",
+        "label": "Show credit card icons",
+        "default": true,
+        "info": "The icons that show are determined by your store's payment settings."
+      }
+    ],
+   "blocks":[
+      {
+         "type":"menu",
+         "name":"Menu",
+         "settings":[
+            {
+               "type": "link_list",
+               "id": "footer_nav",
+               "label": "Sidebar menu",
+               "info": "This menu won't show dropdown items"
+            },
+           {
+            "type": "text",
+            "id": "title",
+            "label": "Menu title",
+            "default": "Explore"
+           }
+         ]
+      },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings":[
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Text title",
+          "default": "About"
+        },
+      {
+          "id": "footer_text",
+          "type": "richtext",
+          "label": "Text",
+          "default": "<p>Adding text to your footer helps introduce your business to new customers.</p>"
+       }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter signup",
+      "limit": 1,
+	    "settings":[
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Mailing list section title",
+          "default": "connect"
+        },
+        {
+         "type": "richtext",
+         "id": "mailing_subheading",
+         "label": "Mailing list subheading",
+         "default": "<p>Join our mailing list for updates</p>"
+        }
+	    ]
+	  },
+    {
+      "type": "social",
+      "name": "social Media",
+      "limit": 1,
+	    "settings":[
+        {
+               "type": "link_list",
+               "id": "footer_nav",
+               "label": "Sidebar menu",
+               "info": "This menu won't show dropdown items"
+        },
+        {
+         "type": "richtext",
+         "id": "social_subheading",
+         "label": "social Media subheading",
+         "default": "<p>Social Media Links</p>"
+        }
+	    ]
+	  }
+   ]
+  }
+{% endschema %}
