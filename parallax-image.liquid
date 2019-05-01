@@ -1,0 +1,52 @@
+<section class="parallax" style="background:url('{{ section.settings.image | img_url: 'master' }}') fixed no-repeat 50%; background-size:contain; background-position: center; height: {{ section.settings.image-height }}; ">
+  
+  
+</section>
+<style>
+  @media (max-width: 992px) {
+    .parallax {
+      background-size: contain!important;
+      background-attachment: unset!important;
+    }
+   {% if block.settings.mobile-image-enable %}
+    .parallax {
+      background-image: {{ section.settings.mobile-image | img_url: 'master' }};
+    } 
+   {% endif %}
+  }
+</style>
+
+
+{% schema %}
+  {
+    "name": "Parallax Image",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "image-height",
+        "label": "Image Height"
+      },
+      {
+        "type": "checkbox",
+        "id": "mobile-image-enable",
+        "label": "Enable Mobile Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile-image",
+        "label": "Mobile Image"
+      }
+	],
+  "presets": [
+      {
+        "name": "Image",
+        "category": "Image"
+      }
+    ]
+}
+{% endschema %}
